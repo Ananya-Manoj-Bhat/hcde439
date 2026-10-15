@@ -4,15 +4,90 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
+    <title>Ananya Bhat's HCDE 439 Physical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 1!</h1>
+    <h1>Ananya Bhat's Assignment 1!</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
+      <img src="blink.gif" />
+    <br>
       <p>Here is all the documentation for assignment 1!</p>
     </div>
-  </body>
+    <br>
+      <p> Schematic of Circuit</p>
+      <img src="schematic.png" />
+      <br>
+    <p>I chose to make a circuit with 3 LEDs - 2 red and one yellow - in parallel with each LED connected to its own 330 ohms resistor. I chose 330 ohm resistors to get the current to approximately 10 mA each. Since I was connecting 3 LEDs in parallel combination, the current would have added up. So, in order to keep the current less than 40 mA, I chose 330 ohms as the safest option. The caluclations are attached below.</p><br>
+    <img src="calcuations.png" />
+    <br>
+    <p>Setup of the circuit</p>
+    <img src="Circuit setup.jpeg" /><br>
+    <p>Arduino Code Snippet</p><br>
+    <p>
+      void setup() { <br>
+        // Set digital pin 4 as an output to control the first LED.<br>
+        pinMode(4, OUTPUT);<br>
+        // Set digital pin 3 as an output to control the second LED.<br>
+        pinMode(3, OUTPUT);<br>
+        // Set digital pin 2 as an output to control the third LED.<br>
+        pinMode(2, OUTPUT);<br>
+      }<br>
+      <br>
+      // The loop function repeats the blinking pattern continuously.<br>
+      void loop() {<br>
+        // Turn on the first LED connected to pin 4.<br>
+        digitalWrite(4, HIGH);<br>
+        // Turn off the second LED connected to pin 3.<br>
+        digitalWrite(3, LOW);<br>
+        // Turn on the third LED connected to pin 2.<br>
+        digitalWrite(2, HIGH);<br>
+        // Keep this LED combination for 1 second.<br>
+        delay(1000);<br>
+        <br>
+        // Turn off the first LED connected to pin 4.<br>
+        digitalWrite(4, LOW);<br>
+        // Turn on the second LED connected to pin 3.<br>
+        digitalWrite(3, HIGH);<br>
+        // Turn off the third LED connected to pin 2.<br>
+        digitalWrite(2, LOW);<br>
+        // Keep this LED combination for 1 second.<br>
+        delay(1000);<br>
+        <br>
+        // Keep the first LED turned off.<br>
+        digitalWrite(4, LOW);<br>
+        // Keep the second LED turned off.<br>
+        digitalWrite(3, LOW);<br>
+        // Turn on the third LED connected to pin 2.<br>
+        digitalWrite(2, HIGH);<br>
+        // Keep this LED combination for 1 second.<br>
+        delay(1000);<br>
+      }<br>
+      </p>
+      <br>
+      <p>Animated Gif of circuit</p>
+      <img src="blink.gif" />
+      <caption>Physical circuit setup showing three LEDs connected to Arduino digital pins 2, 3, and 4 through individual 330 Ω resistors. The cathodes (short legs) of all three LEDs connect to the common ground rail, which is connected to the Arduino GND pin. The Arduino controls each LED using digital output signals to create the programmed blinking pattern.</caption>
+      <img src="videocircuit.mp4" />
+      <br>
+      <p>QUESTIONS</p>
+      <p>Question 1:
+        <img src="graph.png" /><br>
+
+        Question 2: How many LEDs can you independently blink, and how much current does each LED use?<br>
+
+        I can independently control all three LEDs because each LED is connected to a separate digital pin on the Arduino: pins 2, 3, and 4. Each LED has its own 330 Ω resistor to limit the current. Assuming a 5 V supply and a 2 V voltage drop across each LED, the current through each LED is calculated using Ohm’s law:<br>
+        
+        Current = (5 V − 2 V) / 330 Ω = 0.0091 A ≈ 9.1 mA per LED.<br>
+        
+        If all three LEDs are on at the same time, their combined current is approximately 27.3 mA.<br>
+        <br>
+        Question 3: At what blinking frequency does the LED appear to be continuously on?<br>
+        
+        I observed that the LEDs appeared nearly continuous when blinking at approximately 50–60 flashes per second, with intervals of around 17–20 milliseconds between flashes. At this speed, the human eye has difficulty distinguishing individual flashes, making the light appear steady.<br>
+        Question 4: Did you use AI tools in completing this assignment?<br>
+        Yes, I used AI in adding comments to the code snippet. <br>
+      </p>
+    </body>
 </html>
