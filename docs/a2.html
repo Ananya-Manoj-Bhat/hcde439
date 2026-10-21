@@ -159,6 +159,13 @@ bool checkButton(int time) {<br />
 <h1>Questions</h1>
 <p>Question 1:  Draw a chart where the X axis is time and the Y axis is voltage. Draw 3 lines representing the voltage across an LED with analogWrite(led, 64), analogWrite(led, 128), and analogWrite(led, 255).</p>
 <img src="graph2.png" />
-
+<p>Question 2:If all your LEDs were on simultaneously, what would the total current draw be? Is this above or below the total Arduino current draw limits? If all your LEDs were on, how long would your circuit run if powered by a 1200 mAh battery?</p>
+<img src="calculation.png" />
+<p>Question 3:Measure and record the actual voltage across one of your LEDs when it's on. How does this compare to the theoretical forward voltage for your LED color?</p>
+<br/>
+<p>The measured forward voltages were 1.98 V for the red LED and 2.17 V for the green LED. The theoretical forward voltage is approximately 1.8–2.0 V for a red LED and 2.0–2.4 V for a green LED. Both measured values are within the expected ranges, so the results are consistent with the theoretical values.</p>
+<p>Question 4: AI usage</p>
+<p>
+I used AI to understand how `analogWrite()` and `digitalRead()` work and how I could use an `if` statement to set up the button to control my light show. AI also helped me write the `for` loops for fading the blue LED in and out and add comments to my code to explain what each section does. I used AI as a guide to understand these concepts and apply them to my Arduino project.</p>
   </body>
 </html>
