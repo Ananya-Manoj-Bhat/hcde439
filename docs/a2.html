@@ -19,6 +19,142 @@
     <p>set up of the circuit</p>
     <img src="circuit.jpg" />
     <p>Here is the code for the circuit</p>
-    
+// Set the LED and button pin numbers.<br />
+const int redLED = 5;<br />
+const int greenLED = 4;<br />
+const int blueLED = 3;<br />
+const int button = 2;<br />
+<br />
+// Track whether the light show is running.<br />
+bool running = false;<br />
+<br />
+// Store the previous button reading.<br />
+int oldButton = HIGH;<br />
+<br />
+// Run once when the Arduino starts.<br />
+void setup() {<br />
+  // Set LED pins as outputs.<br />
+  pinMode(redLED, OUTPUT);<br />
+  pinMode(greenLED, OUTPUT);<br />
+  pinMode(blueLED, OUTPUT);<br />
+<br />
+  // Enable the button's internal pull-up resistor.<br />
+  pinMode(button, INPUT_PULLUP);<br />
+}
+<br />
+// Repeat while the Arduino is powered.<br />
+void loop() {<br />
+  // Read the button's current state.<br />
+  int newButton = digitalRead(button);<br />
+<br />
+  // Detect a new button press.<br />
+  if (oldButton == HIGH && newButton == LOW) {<br />
+    // Toggle the light show on or off.<br />
+    running = !running;<br />
+<br />
+    // Reduce repeated button readings.<br />
+    delay(200);<br />
+  }<br />
+<br />
+  // Save the current button reading.<br />
+  oldButton = digitalRead(button);<br />
+<br />
+  // Run the light show when enabled.<br />
+  if (running) {<br />
+    // Turn the red LED on.<br />
+    digitalWrite(redLED, HIGH);<br />
+<br />
+    // Keep the green LED off.<br />
+    digitalWrite(greenLED, LOW);<br />
+<br />
+    // Wait 500 ms and check the button.<br />
+    if (checkButton(500)) return;<br />
+<br />
+    // Turn the red LED off.<br />
+    digitalWrite(redLED, LOW);<br />
+<br />
+    // Turn the green LED on.<br />
+    digitalWrite(greenLED, HIGH);<br />
+<br />
+    // Wait 500 ms and check the button.<br />
+    if (checkButton(500)) return;<br />
+<br />
+    // Turn the green LED off.<br />
+    digitalWrite(greenLED, LOW);<br />
+<br />
+    // Fade the blue LED in gradually.<br />
+    for (int bright = 0; bright <= 255; bright += 5) {<br />
+      // Increase the blue LED's brightness.<br /><br />
+      analogWrite(blueLED, bright);<br />
+<br />
+      // Wait 20 ms and check the button.<br />
+      if (checkButton(20)) return;<br />
+    }<br />
+<br />
+    // Fade the blue LED out gradually.<br />
+    for (int bright = 255; bright >= 0; bright -= 5) {<br />
+      // Decrease the blue LED's brightness.<br />
+      analogWrite(blueLED, bright);<br />
+<br />
+      // Wait 20 ms and check the button.<br /><br />
+      if (checkButton(20)) return;<br /><br />
+    }<br />
+<br />
+  } else {<br />
+    // Turn off the red LED.<br />
+    digitalWrite(redLED, LOW);<br />
+<br />
+    // Turn off the green LED.<br /><br />
+    digitalWrite(greenLED, LOW);<br />
+<br />
+    // Turn off the blue LED.<br />
+    analogWrite(blueLED, 0);<br />
+  }<br />
+}<br /><br />
+<br />
+// Check for button presses during a wait.<br />
+bool checkButton(int time) {<br />
+  // Divide the wait into 10 ms intervals.<br />
+  for (int i = 0; i < time / 10; i++) {<br /><br />
+    // Wait 10 ms before checking.<br />
+    delay(10);<br />
+<br />
+    // Read the button's current state.<br />
+    int newButton = digitalRead(button);<br />
+<br />
+    // Detect a new button press.<br /><br />
+    if (oldButton == HIGH && newButton == LOW) {<br />
+      // Toggle the light show state.<br />
+      running = !running;<br />
+<br />
+      // Save the pressed button state.<br />
+      oldButton = LOW;<br />
+<br />
+      // Reduce repeated button readings.<br />
+      delay(200);<br /><br />
+<br />
+      // Turn off the red LED.<br /><br />
+      digitalWrite(redLED, LOW);<br /><br />
+<br /><br />
+      // Turn off the green LED.<br />
+      digitalWrite(greenLED, LOW);<br />
+<br />
+      // Turn off the blue LED.<br />
+      analogWrite(blueLED, 0);<br />
+<br />
+      // Report that a press was detected.<br />
+      return true;<br />
+    }<br />
+<br />
+    // Save the latest button reading.<br />
+    oldButton = newButton;<br />
+  }<br />
+<br />
+  // Report that no press was detected.<br />
+  return false;<br />
+}<br />
+<br />
+<p>Here is the video of the circuit in action:</p>
+<img src="working.mp4" />
   </body>
 </html>
