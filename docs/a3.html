@@ -1,1 +1,125 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Ananya Bhat's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Ananya Bhat's Assignment 3!</h1>
+    <div class="header">
+      <img src="setup cir.jpg" />
+      <p>Here is all the documentation for assignment 3!</p>
+    </div>
+    <p>Schematic for the circuit</p>
+    <img src="diagram.png"/>
+    <p>set up of the circuit</p>
+    <img src="setup cir.jpg" />
+    <p>Here is the code for the circuit</p>
+<br />
+const int sensorPin = A0; // I use A0 to read the voltage from my photoresistor.<br />
+<br />
+// I use PWM pin D11 to control the LED's brightness.<br />
+const int ledPin = 11;<br />
+<br />
+// I use digital pin D12 to control the buzzer.<br />
+const int buzzerPin = 12;<br />
+<br /><br />
+// I set the lower end of my example sensor calibration range to 93.<br />
+const int sensorMin = 93;<br /><br />
+<br />
+// I set the upper end of my example sensor calibration range to 930.<br />
+const int sensorMax = 930;<br />
+<br />
+// I run this setup function once when my Arduino starts.<br />
+void setup() {<br />
+  // I start serial communication at 9600 baud so I can view sensor readings.<br />
+  Serial.begin(9600);<br />
+<br />
+  // I set the LED pin as an output so I can control its brightness.<br />
+  pinMode(ledPin, OUTPUT);<br />
+<br />
+  // I set the buzzer pin as an output so I can turn the alarm on and off.<br />
+  pinMode(buzzerPin, OUTPUT);<br />
+<br />
+  // I print a message to let me know that my light alarm is ready.<br />
+  Serial.println("Light Alarm is ready!");<br />
+}<br />
+<br />
+// I repeat this loop continuously while my Arduino is running.<br />
+void loop() {<br />
+  // I read the photoresistor's voltage as a value between 0 and 1023.<br />
+  int sensorValue = analogRead(sensorPin);<br />
+<br />
+  // I keep the reading within my chosen calibration range.<br />
+  int calibratedValue = constrain(sensorValue, sensorMin, sensorMax);<br />
+<br />
+  // I map the calibrated sensor reading to a brightness value from 0 to 255.<br />
+  int brightness = map(calibratedValue, sensorMin, sensorMax, 0, 255);<br />
+<br />
+  // I use PWM to adjust the LED's brightness based on the sensor reading.<br />
+  analogWrite(ledPin, brightness);<br />
+<br />
+  // I check whether the sensor reading is above my threshold of 512.<br />
+  if (sensorValue > 512) {<br />
+    // If the reading is above 512, I make the buzzer produce a 1000 Hz tone.<br />
+    tone(buzzerPin, 1000);<br />
+<br />
+    // I print a message to show that bright light has activated my alarm.<br />
+    Serial.println("Bright light detected! Alarm ON");<br />
+  } else {<br />
+    // If the reading is 512 or lower, I stop the buzzer.<br />
+    noTone(buzzerPin);<br />
+<br />
+    // I print a message to show that my alarm is off in lower light.<br />
+    Serial.println("Low light detected. Alarm OFF");<br />
+  }<br />
+<br />
+  // I print the raw sensor reading so I can monitor changes in light.<br />
+  Serial.print("Sensor reading: ");<br />
+<br />
+  // I display the current sensor reading.<br />
+  Serial.print(sensorValue);<br />
+<br />
+  // I separate the sensor reading from the LED brightness in the output.<br />
+  Serial.print(" | LED brightness: ");<br />
+<br />
+  // I display the calculated LED brightness value from 0 to 255.<br />
+  Serial.println(brightness);<br />
+<br />
+  // I wait 200 milliseconds before taking the next reading.<br />
+  delay(200);<br />
+}<br />
+<br />
+<h3>Input and Output Demonstration</h3>
+
+<video controls width="640" preload="metadata">
+  <source src="vidcir.mp4" type="video/mp4">
+  Your browser does not support HTML video.
+</video>
+<h2>QUESTIONS</h2>
+<img src="q1.png">
+<br>
+<p>Question 2</p>
+<img src="table.png">
+<p>I used the formula Voltage calculation: Voltage = (Analog Reading ÷ 1023) × 5 V.</p>
+<img src="photograph.png">
+<br>
+<p>Question 3</p>
+<br>
+Currently, analogRead() on the Arduino Uno reads an analog input using a 10-bit ADC, which produces values from 0 to 1023. The analogWrite() function uses an 8-bit PWM value, which ranges from 0 to 255.<br>
+<br>
+If we used a 16-bit ADC and a 10-bit PWM output instead, the ADC would produce values from 0 to 65,535, while the PWM output would range from 0 to 1,023. I would change the map() function so that it maps the sensor's input range to the new PWM output range.<br>
+<br>
+The original code is:
+
+int brightness = map(calibratedValue, sensorMin, sensorMax, 0, 255);<br>
+<br>
+The modified code would be:
+
+int brightness = map(calibratedValue, sensorMin, sensorMax, 0, 1023);
+<br>
+I would also need to update sensorMin and sensorMax to match the calibration range of the 16-bit ADC. This change would allow the program to use the higher-resolution sensor readings and provide 1,024 possible PWM output levels instead of 256, allowing more precise control over the LED's brightness.
