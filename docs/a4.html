@@ -83,3 +83,13 @@ void loop() {<br />
   <source src="coin.mp4" type="video/mp4">
   Your browser does not support HTML video.
 </video>
+<p><h3>Sensor Testing and Threshold Selection</h3></p>
+<p>I used the Arduino Serial Monitor to observe the capacitive sensor readings under two conditions.</p>
+<ul>
+  <li>When the coins were untouched, the readings were approximately 9–21.</li>
+  <li>When the coins were touched, the readings increased to approximately 783–903.</li>
+</ul>
+
+Based on these observations, I selected a threshold of 200. This value separates the untouched and touched readings, allowing the Arduino to reliably distinguish between the two states.
+
+I used the condition `sensorValue > touchThreshold` in my code. When the reading exceeds 200, the servo moves to 90 degrees. When the reading falls below 200, the servo returns to 0 degrees.</p>
