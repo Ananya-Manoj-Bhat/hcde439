@@ -11,7 +11,68 @@
   <body>
     <h1>Ananya Bhat's Assignment 4!</h1>
     <div class="header">
-      <img src="blink.gif" />
+      <img src="coincir.jpg" />
     <br>
       <p>Here is all the documentation for assignment 4!</p>
     </div>
+    <p>Schematic for the circuit</p>
+    <img src="servodi.png"/>
+    <p>This schematic shows my capacitive touch sensor connected to an Arduino Uno and an SG90 servo motor. I used a 1 MΩ resistor between digital pins D4 and D2 to create the capacitive sensing circuit. Two connected coins act as the touch electrode. I chose a 1 MΩ resistor because a high resistance allows the capacitive sensor to detect small changes in capacitance when a person touches the coins. The servo's signal wire is connected to D9, while its power and ground wires are connected to 5V and GND.</p>
+    <p>set up of the circuit</p>
+    <img src="coincir.jpg" />
+    <p>Here is the code for the circuit</p>
+<br />
+#include <CapacitiveSensor.h><br />
+#include <Servo.h><br />
+<br />
+// Touch sensor: send pin 4, receive pin 2<br />
+CapacitiveSensor touchSensor = CapacitiveSensor(4, 2);<br />
+<br />
+// Servo connected to pin 9<br />
+Servo myServo;<br />
+<br />
+// Touch threshold<br />
+const long touchThreshold = 200;<br />
+<br />
+bool wasTouched = false;<br />
+<br />
+void setup() {<br />
+  Serial.begin(9600);<br />
+<br />
+  // Attach servo<br />
+  myServo.attach(9);<br />
+  myServo.write(0);<br />
+<br />
+  // Disable automatic calibration<br />
+  touchSensor.set_CS_AutocaL_Millis(0xFFFFFFFF);<br />
+<br />
+  Serial.println("Touch sensor ready!");<br />
+}<br />
+<br />
+void loop() {<br />
+  // Read the touch sensor<br />
+  long sensorValue = touchSensor.capacitiveSensor(30);<br />
+<br />
+  // Display sensor reading<br />
+  Serial.println(sensorValue);<br />
+<br />
+  // Detect touch when reading rises above 200<br />
+  bool isTouched = sensorValue > touchThreshold;<br />
+<br />
+  // Move servo when coins are touched<br />
+  if (isTouched && !wasTouched) {<br />
+    myServo.write(90);<br />
+    Serial.println("Touch detected!");<br />
+  }<br />
+<br />
+  // Return servo when coins are released<br />
+  if (!isTouched && wasTouched) {<br />
+    myServo.write(0);<br />
+    Serial.println("Touch released!");<br />
+  }<br />
+<br />
+  wasTouched = isTouched;<br />
+<br />
+  delay(50);<br />
+}<br /><br />
+<br />
