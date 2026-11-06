@@ -17,7 +17,9 @@
     </div>
     <p><h2>Schematic for the circuit</h2></p>
     <img src="servodi.png"/>
-    <p>This schematic shows my capacitive touch sensor connected to an Arduino Uno and an SG90 servo motor. I used a 1 MΩ resistor between digital pins D4 and D2 to create the capacitive sensing circuit. Two connected coins act as the touch electrode. I chose a 1 MΩ resistor because a high resistance allows the capacitive sensor to detect small changes in capacitance when a person touches the coins. The servo's signal wire is connected to D9, while its power and ground wires are connected to 5V and GND.</p>
+    <p>This schematic shows my capacitive touch sensor connected to an Arduino Uno and an SG90 servo motor. I used a 1 MΩ resistor between digital pins D4 and D2 to create the capacitive sensing circuit. Two connected coins act as the touch electrode. I chose a 1 MΩ resistor because a high resistance allows the capacitive sensor to detect small changes in capacitance when a person touches the coins. The servo's signal wire is connected to D9, while its power and ground wires are connected to 5V and GND.
+        I used a 1 MΩ resistor because the lecture recommends this value for capacitive touch sensing. It provides enough sensitivity to detect direct touch without making the sensor overly sensitive. Higher resistance values, such as 10 MΩ or 40 MΩ, can detect touch from farther away, but may make the sensor more sensitive and slower to respond.
+    </p>
     <p><h2>Setup of the circuit</h2></p>
     <img src="coincir.jpg" />
 <p>This image shows my completed physical circuit. I built the capacitive touch sensor using a 1 MΩ resistor and two connected coins. The coins act as the touch-sensitive electrode. The SG90 servo motor is connected to the Arduino and responds to changes detected by the touch sensor. I tested the circuit by touching and releasing the coins to verify that the servo moved correctly.</p>
