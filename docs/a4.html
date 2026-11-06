@@ -13,14 +13,15 @@
     <div class="header">
       <img src="coincir.jpg" />
     <br>
-      <p>Here is all the documentation for assignment 4!</p>
+      <p><h2>Documentation for Assignment 4</h2></p>
     </div>
-    <p>Schematic for the circuit</p>
+    <p><h2>Schematic for the circuit</h2></p>
     <img src="servodi.png"/>
     <p>This schematic shows my capacitive touch sensor connected to an Arduino Uno and an SG90 servo motor. I used a 1 MΩ resistor between digital pins D4 and D2 to create the capacitive sensing circuit. Two connected coins act as the touch electrode. I chose a 1 MΩ resistor because a high resistance allows the capacitive sensor to detect small changes in capacitance when a person touches the coins. The servo's signal wire is connected to D9, while its power and ground wires are connected to 5V and GND.</p>
-    <p>set up of the circuit</p>
+    <p><h2>Setup of the circuit</h2></p>
     <img src="coincir.jpg" />
-    <p>Here is the code for the circuit</p>
+<p>This image shows my completed physical circuit. I built the capacitive touch sensor using a 1 MΩ resistor and two connected coins. The coins act as the touch-sensitive electrode. The SG90 servo motor is connected to the Arduino and responds to changes detected by the touch sensor. I tested the circuit by touching and releasing the coins to verify that the servo moved correctly.</p>
+    <p><h2>Code for the Circuit</h2></p>
 <br />
 #include <CapacitiveSensor.h><br />
 #include <Servo.h><br />
@@ -76,3 +77,9 @@ void loop() {<br />
   delay(50);<br />
 }<br /><br />
 <br />
+<h3>Demonstration</h3>
+
+<video controls width="640" preload="metadata">
+  <source src="coin.mp4" type="video/mp4">
+  Your browser does not support HTML video.
+</video>
