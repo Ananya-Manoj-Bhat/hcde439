@@ -93,3 +93,39 @@ void loop() {<br />
 Based on these observations, I selected a threshold of 200. This value separates the untouched and touched readings, allowing the Arduino to reliably distinguish between the two states.
 
 I used the condition `sensorValue > touchThreshold` in my code. When the reading exceeds 200, the servo moves to 90 degrees. When the reading falls below 200, the servo returns to 0 degrees.</p>
+
+<h2>QUESTIONS</h2>
+<p>Question 1</p>
+<img src="pos.png">
+<br>
+<p>Question 2</p><br>
+// Take 5 measurements from the input device<br>
+for (int i = 0; i < 5; i++) {<br>
+    readings[i] = readSensor();<br>
+}<br>
+<br>
+// Sort the readings from smallest to largest<br>
+sort(readings);<br>
+<br>
+// Use the middle value as the final measurement<br>
+measurement = readings[2];<br>
+<br>
+<p>Question 3</p><br>
+// Take 5 measurements from the input device<br>
+for (int i = 0; i < 5; i++) {<br>
+    readings[i] = readSensor();<br>
+}<br>
+<br>
+// Add all the readings<br>
+sum = 0;<br>
+<br>
+for (int i = 0; i < 5; i++) {<br>
+    sum = sum + readings[i];<br>
+}<br>
+<br><br>
+// Calculate the average<br>
+measurement = sum / 5;<br>
+<p>AI Usage</p><br>
+<p>I used ChatGPT to help clarify concepts, understand the assignment questions, and organize my explanations. The final answers were reviewed and edited by me.</p>
+</body>
+</html>
