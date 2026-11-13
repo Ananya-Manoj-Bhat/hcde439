@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Ananya Bhat's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Ananya Bhat's Assignment 5!</h1>
+    <div class="header">
+      <img src="coincir.jpg" />
+    <br>
+      <p><h2>Documentation for Assignment 5</h2></p>
+    </div>
+    <p><h2>Schematic for the circuit</h2></p>
+    <img src="servodi.png"/>
+    <h2>QUESTIONS</h2>
+    <h1>Question 1</h1>
+    <p>The MOSFET I am using is the IRLZ44N N-channel MOSFET. According to its datasheet, the absolute maximum continuous drain current (\(I_D\)) between pin 2 (Drain) and pin 3 (Source) is 47 A at a case temperature of 25°C.</p>
+    <h1>Question 2</h1>
+    <img src="Q2.png" />
+    <h1>Question 3</h1>
+    <img src="Q3.png" />
+    <P><br>
+ // Pins used to control motor A<br>
+const int ENA = 9;   // Controls motor A's speed<br>
+const int IN1 = 2;   // Controls motor A's direction<br>
+const int IN2 = 3;   // Works with IN1 to set the direction<br>
+<br>
+// Pins used to control motor B<br>
+const int ENB = 10;  // Controls motor B's speed<br>
+const int IN3 = 4;   // Controls motor B's direction<br>
+const int IN4 = 5;   // Works with IN3 to set the direction<br>
+v
+void setup() {<br>
+  // Set the motor control pins as outputs<br>
+  pinMode(ENA, OUTPUT);<br>
+  pinMode(IN1, OUTPUT);<br>
+  pinMode(IN2, OUTPUT);<br>
+  pinMode(ENB, OUTPUT);<br>
+  pinMode(IN3, OUTPUT);<br>
+  pinMode(IN4, OUTPUT);<br>
+}<br>
+<br>
+// This function controls the direction and speed of both motors<br>
+void drive(int dirA, int dirB, int speed) {<br>
+  // Set motor A to move forward or backward<br>
+  digitalWrite(IN1, dirA > 0);<br>
+  digitalWrite(IN2, dirA < 0);<br>
+<br>
+  // Do the same for motor B<br>
+  digitalWrite(IN3, dirB > 0);<br>
+  digitalWrite(IN4, dirB < 0);<br>
+<br>
+  // Set how fast each motor spins<br>
+  analogWrite(ENA, speed);<br>
+  analogWrite(ENB, speed);<br>
+}<br>
+<br>
+void loop() {<br>
+  // Move both motors forward for 2 seconds<br><br>
+  drive(+1, +1, 200);<br><br>
+  delay(2000);<br>
+<br>
+  // Move both motors backward for 2 seconds<br>
+  drive(-1, -1, 200);<br>
+  delay(2000);<br>
+<br>
+  // Move motor A forward and motor B backward<br>
+  drive(+1, -1, 200);<br>
+  delay(2000);<br>
+<br>
+  // Move motor A backward and motor B forward<br>
+  drive(-1, +1, 200);<br>
+  delay(2000);<br>
+<br>
+  // Stop both motors for 1 second before repeating<br>
+  drive(0, 0, 0);<br>
+  delay(1000);<br>
+}<br>
+</P>
+  </body>
+</html>
