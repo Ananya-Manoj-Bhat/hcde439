@@ -142,5 +142,60 @@ void loop() {<br>
 }<br>
 <h2>QUESTION 4</h2>
 <p>I used ChatGPT to help me understand how the MOSFET works, check my resistor calculations, and clarify the connections between the Arduino, LED strip, and external power supply. I also used it to help organize my explanations and improve the comments in my code. I built and tested the circuit myself, checked the connections, and used my lecture slides and the MOSFET datasheet to verify the information. AI was helpful in understanding the concepts, but I still needed to troubleshoot the circuit and make sure everything worked correctly.</p>
+<p>Prompt: Can you review my Arduino code and help me write clearer comments explaining what each line does?
+<br>
+AI Output:<br>
+
+Your code uses the CapacitiveSensor library to detect when the coin is touched and controls the LED strip's brightness using PWM through the MOSFET. The overall logic looks good. I would recommend adding comments above the lines in setup() and loop() that don't have explanations yet, especially Serial.begin(), pinMode(), the if statement, and delay().
+<br>
+Here is your code with clearer comments:
+<br>
+#include <CapacitiveSensor.h><br>
+<br>
+// D2 sends the signal, D4 receives it<br>
+CapacitiveSensor touchSensor = CapacitiveSensor(2, 4);<br>
+<br>
+// MOSFET Gate is controlled through D9<br>
+const int mosfetPin = 9;<br>
+<br>
+// Starting touch threshold<br>
+const long touchThreshold = 200;<br>
+<br>
+// Current LED brightness<br>
+int brightness = 0;<br>
+<br>
+void setup() {<br>
+  Serial.begin(9600);<br>
+  pinMode(mosfetPin, OUTPUT);<br>
+<br><br>
+  // Disable automatic recalibration<br>
+  touchSensor.set_CS_AutocaL_Millis(0xFFFFFFFF);<br>
+<br>
+  // Start with the LED strip off<br>
+  analogWrite(mosfetPin, 0);<br>
+}<br>
+<br>
+void loop() {<br><br>
+  // Read the capacitive touch sensor<br>
+  long touchValue = touchSensor.capacitiveSensor(30);<br>
+<br>
+  // Display sensor readings<br>
+  Serial.println(touchValue);<br>
+<br>
+  if (touchValue > touchThreshold) {<br>
+    // Gradually increase brightness when touched<br>
+    brightness = min(brightness + 5, 255);<br>
+  } else {<br>
+    // Turn off when not touched<br>
+    brightness = 0;<br>
+  }<br>
+<br>
+  // Send PWM signal to MOSFET Gate<br>
+  analogWrite(mosfetPin, brightness);<br>
+<br>
+  delay(20);<br>
+}</p><br>
+<br>
+Additional suggestion: During Arduino startup, digital pins are initially inputs. The 10kΩ pull-down resistor helps keep the MOSFET Gate LOW until D9 is configured as an output. You could mention this when explaining pinMode() in your assignment.</p>
   </body>
 </html>
