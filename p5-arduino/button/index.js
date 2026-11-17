@@ -28,12 +28,12 @@ function draw() {
 
   // Change text and colors based on button state. In p5, you can set colors
   // using standard CSS color names as well as many other color formats.
-  if (buttonState === 0) {
+  if (buttonState === 1) {
     // If the button is not pressed
     background("darkcyan"); // Background color
     fill("coral"); // Fill color for the text
     text("not pressed", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
-  } else if (buttonState === 1) {
+  } else if (buttonState === 0) {
     // If the button is pressed
     background("lightskyblue"); // Background color
     fill("yellow"); // Fill color for the text
