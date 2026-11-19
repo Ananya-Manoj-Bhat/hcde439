@@ -27,6 +27,7 @@ function draw() {
   let diameter = map(Number(arr[2]), 512, 1023, MIN_DIAMETER, MAX_DIAMETER);
 
   // Draw a circle using our readings
+  background("black"); // Set background to black
   circle(x, y, diameter);
 }
 
